@@ -31,3 +31,61 @@ WHERE quantity_mobile_phones > 2;
 -- 3. Выведите весь ассортимент товаров марки “Samsung”
 SELECT * FROM mobile_phones
 WHERE manufacturers_mobile_phones = 'Samsung';
+
+________________________________________________________________________________________________________________________________________________________________
+
+/* 1. Создайте таблицу с мобильными телефонами, 
+используя графический интерфейс. Необходимые поля таблицы: 
+product_name (название товара), manufacturer (производитель), 
+product_count (количество), price (цена). Заполните БД произвольными данными.*/
+
+CREATE SCHEMA `mobile_phones`;
+CREATE TABLE `mobile_phones`.`phones` (
+  `id` INT NOT NULL,
+  `product_name` VARCHAR(45) NOT NULL,
+  `manufacturer` VARCHAR(45) NOT NULL,
+  `product_count` INT NOT NULL,
+  `price` INT NOT NULL,
+  PRIMARY KEY (`id`));
+INSERT INTO `mobile_phones`.`phones` (`id`, `product_name`, `manufacturer`, `product_count`, `price`) VALUES ('4', '70PRO', 'HONOR', '5', '40000');
+INSERT INTO `mobile_phones`.`phones` (`id`, `product_name`, `manufacturer`, `product_count`, `price`) VALUES ('3', 'Redmi Note 8 Pro', 'Xiaomi', '10', '18000');
+INSERT INTO `mobile_phones`.`phones` (`id`, `product_name`, `manufacturer`, `product_count`, `price`) VALUES ('2', 'IPhone 11', 'Apple', '3', '50000');
+INSERT INTO `mobile_phones`.`phones` (`id`, `product_name`, `manufacturer`, `product_count`, `price`) VALUES ('1', 'A51', 'Samsung', '5', '25000');
+INSERT INTO `mobile_phones`.`phones` (`id`, `product_name`, `manufacturer`, `product_count`, `price`) VALUES ('6', 'C30', 'Siemens', '1', '3500');
+INSERT INTO `mobile_phones`.`phones` (`id`, `product_name`, `manufacturer`, `product_count`, `price`) VALUES ('5', '3310', 'Nokia', '1', '5000');
+
+/*2.Напишите SELECT-запрос, который выводит название товара, 
+производителя и цену для товаров, количество которых превышает 2 */
+
+SELECT product_name, manufacturer, price
+FROM mobile_phones.phones
+WHERE product_count > 2;
+
+/*3.Выведите SELECT-запросом весь ассортимент товаров марки “Samsung” */
+
+SELECT *
+FROM mobile_phones.phones
+WHERE manufacturer LIKE "Samsung";
+
+/* 4.С помощью SELECT-запроса с оператором LIKE / REGEXP найти:
+4.1 Товары, в которых есть упоминание "Iphone" */
+
+SELECT * FROM mobile_phones.phones
+WHERE (product_name LIKE '%IPhone%')
+OR (manufacturer LIKE '%IPhone%');
+
+# 4.2 Товары, в которых есть упоминание "Samsung"
+
+SELECT * FROM mobile_phones.phones
+WHERE (product_name LIKE '%Samsung%')
+OR (manufacturer LIKE '%Samsung%');
+
+# 4.3 Товары, в названии которых есть ЦИФРЫ
+
+SELECT * FROM mobile_phones.phones
+WHERE product_name REGEXP '[0-9]';
+
+# 4.4 Товары, в названии которых есть ЦИФРА "8"
+
+SELECT * FROM mobile_phones.phones
+WHERE product_name LIKE '%8%';
